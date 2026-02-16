@@ -104,7 +104,7 @@ export default function Header() {
             </div>
             <a
               href="tel:+2348085486738"
-              className="rounded-full bg-[var(--primary)] px-4 py-2 text-center text-sm font-medium text-white hover:bg-[var(--primary-dark)]"
+              className="mt-3 rounded-full bg-[var(--primary)] px-4 py-2 text-center text-sm font-medium text-white hover:bg-[var(--primary-dark)]"
             >
               +234 808 548 6738
             </a>
