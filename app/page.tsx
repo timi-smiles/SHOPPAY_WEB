@@ -16,7 +16,7 @@ export default function Home() {
       >
         <AnimateIn className="flex flex-1 flex-col items-center text-center md:items-start md:text-left" delay={0}>
           <h1 className="text-3xl font-bold tracking-tight text-[var(--text-primary)] sm:text-4xl md:text-5xl">
-            Shop and sell with trust
+            Shop and sell with trust on ShopPay
           </h1>
           <p className="mt-4 text-xl font-semibold sm:text-2xl md:text-3xl" style={{ color: "var(--accent)" }}>
             Pay Safe, Shop Free.<sup className="ml-0.5 text-sm font-normal opacity-90 md:text-base">™</sup>
