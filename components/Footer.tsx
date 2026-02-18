@@ -14,7 +14,7 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:py-14">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
-            <h3 className="mb-3 text-lg font-semibold text-[var(--primary)]">ShopPay Nigeria Ltd.</h3>
+            <h3 className="mb-3 text-lg font-semibold text-[var(--primary)]">ShopBay Global Market Ltd.</h3>
             <p className="mb-4 max-w-xl text-sm leading-relaxed">{COMPANY_DESCRIPTION}</p>
             <p className="text-sm font-semibold text-[var(--accent)]">Pay Safe, Shop Free.<sup className="ml-0.5 font-normal opacity-90">™</sup></p>
           </div>
@@ -32,7 +32,7 @@ export default function Footer() {
             <div>
               <h4 className="mb-2 text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)]">Office</h4>
               <p className="text-sm text-[var(--text-primary)]">
-                ShopPay Nigeria Ltd.
+                ShopBay Global Market Limited
                 <br />
                 {ADDRESS}
               </p>
@@ -59,7 +59,7 @@ export default function Footer() {
         </div>
 
         <p className="mt-6 text-center text-xs text-[var(--text-muted)]">
-          © {new Date().getFullYear()} ShopPay Nigeria Ltd. All rights reserved.
+          © {new Date().getFullYear()} ShopBay Global Market Limited All rights reserved.
         </p>
       </div>
     </footer>

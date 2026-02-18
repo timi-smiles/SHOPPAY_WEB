@@ -51,7 +51,7 @@ export default function AboutPage() {
         <AnimateIn>
           <div className="mx-auto max-w-5xl">
           <h2 className="text-2xl font-bold text-[var(--text-primary)] sm:text-3xl">Meet our team</h2>
-          <p className="mt-2 text-[var(--text-secondary)]">The people behind ShopPay Nigeria Ltd.</p>
+          <p className="mt-2 text-[var(--text-secondary)]">The people behind ShopBay Global Market Limited</p>
 
           <div className="mt-10 grid gap-8 sm:grid-cols-2">
             {LEADERSHIP.map((person) => (

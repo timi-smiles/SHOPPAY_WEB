@@ -4,7 +4,7 @@ import AnimateIn from "@/components/AnimateIn";
 const EMAIL = "hq@shoppay.market";
 const PHONE = "+234 808 548 6738";
 const ADDRESS_LINE = "Block 1, 401 Road, Gowon Estate, Lagos, Nigeria";
-const COMPANY_NAME = "ShopPay Nigeria Ltd.";
+const COMPANY_NAME = "ShopBay Global Market Limited";
 
 export const metadata = {
   title: "Contact – ShopPay Nigeria",

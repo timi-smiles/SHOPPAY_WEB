@@ -46,7 +46,7 @@ export default function TermsPage() {
             <a href="mailto:hq@shoppay.market" className="text-[var(--primary)] hover:underline">
               hq@shoppay.market
             </a>
-            , or ShopPay Nigeria Ltd., Block 1, 401 Road, Gowon Estate, Lagos, Nigeria. Phone:{" "}
+            , or ShopBay Global Market Limited, Block 1, 401 Road, Gowon Estate, Lagos, Nigeria. Phone:{" "}
             <a href="tel:+2348085486738" className="text-[var(--primary)] hover:underline">
               +234 808 548 6738
             </a>
