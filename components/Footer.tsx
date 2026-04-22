@@ -2,11 +2,12 @@ import Link from "next/link";
 import DownloadApp from "@/components/DownloadApp";
 
 const COMPANY_DESCRIPTION =
-  "ShopPay is a secure, mobile-first e-commerce and fintech platform in Nigeria that enables safe buying and selling of new and used products online. We provide escrow-protected transactions (funds held until delivery confirmation via OTP), social commerce integration (Instagram, WhatsApp, TikTok), airtime, data and utility bill payments, and low transaction fees (3% on new items, 6% on used items). Our mission is to eliminate online scams, reduce marketplace fees, and empower micro-entrepreneurs and everyday Nigerians to shop and sell with trust and convenience.";
+  "ShopPay NG is a secure, mobile-first e-commerce and fintech platform in Nigeria that enables safe buying and selling of new and used products online. We provide escrow-protected transactions (funds held until delivery confirmation via OTP), social commerce integration (Instagram, WhatsApp, TikTok), airtime, data and utility bill payments, and low transaction fees (3% on new items, 6% on used items). Our mission is to eliminate online scams, reduce marketplace fees, and empower micro-entrepreneurs and everyday Nigerians to shop and sell with trust and convenience.";
 
 const ADDRESS = "Block 1, 401 Road, Gowon Estate, Lagos, Nigeria";
 const EMAIL = "hq@shoppay.market";
 const PHONE = "+234 808 548 6738";
+const COMPANY_RC = "8512868";
 
 export default function Footer() {
   return (
@@ -37,6 +38,11 @@ export default function Footer() {
                 {ADDRESS}
               </p>
             </div>
+            <p className="text-sm text-[var(--text-primary)]">
+              ShopPay NG is a product of Shopbay Global Market Limited, RC: [{COMPANY_RC}]
+              <br />
+              Payments by Paystack. Escrow held by Hope PSB, CBN-Licensed.
+            </p>
           </div>
         </div>
 
@@ -53,7 +59,7 @@ export default function Footer() {
             </Link>
           </div>
           <div className="flex flex-col items-center gap-2 sm:flex-row sm:items-center">
-            <span className="text-sm font-medium text-[var(--text-muted)]">Download ShopPay</span>
+            <span className="text-sm font-medium text-[var(--text-muted)]">Download ShopPay NG</span>
             <DownloadApp variant="badge" />
           </div>
         </div>

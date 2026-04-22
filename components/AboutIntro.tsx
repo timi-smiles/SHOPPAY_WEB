@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const SHORT_INTRO = "ShopPay is Nigeria's secure e-commerce and fintech platform for safe buying and selling.";
+const SHORT_INTRO = "ShopPay NG is Nigeria's secure e-commerce and fintech platform for safe buying and selling.";
 const FULL_DESCRIPTION =
   "We provide escrow-protected transactions (funds held until delivery confirmation via OTP), social commerce integration (Instagram, WhatsApp, TikTok), airtime, data and utility bill payments, and low transaction fees (3% on new items, 6% on used items). Our mission is to eliminate online scams, reduce marketplace fees, and empower micro-entrepreneurs and everyday Nigerians to shop and sell with trust and convenience.";
 
@@ -11,7 +11,7 @@ export default function AboutIntro() {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <h1 className="text-3xl font-bold text-[var(--text-primary)] sm:text-4xl">About ShopPay</h1>
+      <h1 className="text-3xl font-bold text-[var(--text-primary)] sm:text-4xl">About ShopPay NG</h1>
       <p className="mt-5 text-lg leading-relaxed text-[var(--text-secondary)]">{SHORT_INTRO}</p>
       {/* Desktop: full description always visible */}
       <p className="mt-4 hidden leading-relaxed text-[var(--text-secondary)] sm:block sm:text-lg">

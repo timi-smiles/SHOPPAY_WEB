@@ -7,8 +7,8 @@ const ADDRESS_LINE = "Block 1, 401 Road, Gowon Estate, Lagos, Nigeria";
 const COMPANY_NAME = "ShopBay Global Market Limited";
 
 export const metadata = {
-  title: "Contact – ShopPay Nigeria",
-  description: "Get in touch with ShopPay. Email, phone, and office address in Lagos.",
+  title: "Contact – ShopPay NG Nigeria",
+  description: "Get in touch with ShopPay NG. Email, phone, and office address in Lagos.",
 };
 
 export default function ContactPage() {
@@ -67,7 +67,7 @@ export default function ContactPage() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="ShopPay office location - Gowon Estate, Lagos"
+              title="ShopPay NG office location - Gowon Estate, Lagos"
             />
           </div>
           </div>
@@ -77,7 +77,7 @@ export default function ContactPage() {
       <section className="border-t border-[var(--border)] bg-[var(--purple-light)]/60 px-4 py-10 sm:px-6 sm:py-12">
         <AnimateIn>
           <div className="mx-auto flex max-w-xl flex-col items-center text-center">
-          <h2 className="text-xl font-bold text-[var(--text-primary)]">Download ShopPay on Google Play</h2>
+          <h2 className="text-xl font-bold text-[var(--text-primary)]">Download ShopPay NG on Google Play</h2>
           <p className="mt-2 text-sm text-[var(--text-secondary)]">Secure e-commerce and payments in Nigeria.</p>
           <div className="mt-5">
             <DownloadApp variant="banner" />

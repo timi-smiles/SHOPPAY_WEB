@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Privacy Policy – ShopPay Nigeria",
+  title: "Privacy Policy – ShopPay NG Nigeria",
   description: "ShopBay Global Market Limited privacy policy. How we collect, use and protect your data.",
 };
 
@@ -12,7 +12,7 @@ export default function PrivacyPage() {
 
       <div className="prose prose-neutral mt-8 space-y-6 text-[var(--text-secondary)]">
         <p>
-          ShopBay Global Market Limited (“ShopPay”, “we”, “us”) is committed to protecting your privacy. This policy describes
+          ShopBay Global Market Limited (“ShopPay NG”, “we”, “us”) is committed to protecting your privacy. This policy describes
           how we collect, use, and safeguard your information when you use our website, mobile application, and services.
         </p>
         <section>

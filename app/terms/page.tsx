@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Terms & Conditions – ShopPay Nigeria",
-  description: "Terms and conditions for using ShopPay e-commerce and fintech services in Nigeria.",
+  title: "Terms & Conditions – ShopPay NG Nigeria",
+  description: "Terms and conditions for using ShopPay NG e-commerce and fintech services in Nigeria.",
 };
 
 export default function TermsPage() {
@@ -12,7 +12,7 @@ export default function TermsPage() {
 
       <div className="prose prose-neutral mt-8 space-y-6 text-[var(--text-secondary)]">
         <p>
-          Welcome to ShopPay. By using our website, mobile application, and services you agree to these terms. ShopPay
+          Welcome to ShopPay NG. By using our website, mobile application, and services you agree to these terms. ShopPay NG
           Nigeria Ltd. provides a secure e-commerce and fintech platform in Nigeria including escrow-protected
           transactions, social commerce, and utility payments.
         </p>
@@ -34,7 +34,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-semibold text-[var(--text-primary)]">Limitation of liability</h2>
           <p>
-            ShopPay is not liable for indirect, consequential, or incidental damages arising from use of the platform
+            ShopPay NG is not liable for indirect, consequential, or incidental damages arising from use of the platform
             to the maximum extent permitted by law. Our liability is limited as set out in our full terms and applicable
             regulations.
           </p>

@@ -16,7 +16,7 @@ export default function Home() {
       >
         <AnimateIn className="flex flex-1 flex-col items-center text-center md:items-start md:text-left" delay={0}>
           <h1 className="text-3xl font-bold tracking-tight text-[var(--text-primary)] sm:text-4xl md:text-5xl">
-            Shop and sell with trust on ShopPay
+            Shop and sell with trust on ShopPay NG
           </h1>
           <p className="mt-4 text-xl font-semibold sm:text-2xl md:text-3xl" style={{ color: "var(--accent)" }}>
             Pay Safe, Shop Free.<sup className="ml-0.5 text-sm font-normal opacity-90 md:text-base">™</sup>
@@ -39,7 +39,7 @@ export default function Home() {
             <div className="relative aspect-[3/4] w-full">
               <Image
                 src="/onboarding1.jpg"
-                alt="ShopPay app – safe shopping in Nigeria"
+                alt="ShopPay NG app – safe shopping in Nigeria"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw,  min(45vw, 420px)"
@@ -53,7 +53,7 @@ export default function Home() {
       {/* Onboarding images – auto-rotate on mobile, grid on desktop */}
       <OnboardingShowcase />
 
-      {/* Trade with ShopPay – video + Buy gif */}
+      {/* Trade with ShopPay NG – video + Buy gif */}
       <section className="border-t border-[var(--border)] bg-[var(--gray-bg)] py-12 sm:py-16">
         <AnimateIn>
           <div className="mx-auto max-w-6xl px-2 sm:px-3">
@@ -61,7 +61,7 @@ export default function Home() {
             In action
           </p>
           <h2 className="mt-2 text-center text-2xl font-bold tracking-tight text-[var(--text-primary)] sm:text-3xl">
-            Trade with ShopPay
+            Trade with ShopPay NG
           </h2>
           <div className="mt-8 flex flex-col items-center gap-6 md:flex-row md:items-stretch md:gap-6">
             <div className="w-full overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)] shadow-md md:flex-1">
@@ -71,7 +71,7 @@ export default function Home() {
                 loop
                 playsInline
                 className="aspect-video w-full object-cover"
-                aria-label="ShopPay – trade safely in Nigeria"
+                aria-label="ShopPay NG – trade safely in Nigeria"
               >
                 <source src="/shoppay.mp4" type="video/mp4" />
               </video>
@@ -79,25 +79,25 @@ export default function Home() {
             <div className="flex w-full shrink-0 flex-col items-center justify-center overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 shadow-md md:w-72">
               <Image
                 src="/buy.gif"
-                alt="Buy with ShopPay"
+                alt="Buy with ShopPay NG"
                 width={200}
                 height={200}
                 className="h-auto w-full max-w-[200px] object-contain"
                 unoptimized
               />
-              <p className="mt-3 text-sm font-semibold text-[var(--primary)]">Buy with ShopPay</p>
+              <p className="mt-3 text-sm font-semibold text-[var(--primary)]">Buy with ShopPay NG</p>
             </div>
           </div>
           </div>
         </AnimateIn>
       </section>
 
-      {/* Why ShopPay – features */}
+      {/* Why ShopPay NG – features */}
       <section className="border-t border-[var(--border)] bg-white px-4 py-14 sm:px-6 sm:py-16">
         <AnimateIn>
           <div className="mx-auto max-w-4xl text-center">
           <h2 className="text-2xl font-bold text-[var(--text-primary)] sm:text-3xl">
-            Why Nigerians choose ShopPay
+            Why Nigerians choose ShopPay NG
           </h2>
           <p className="mt-3 text-[var(--text-secondary)]">
             Built to eliminate scams and put you in control.

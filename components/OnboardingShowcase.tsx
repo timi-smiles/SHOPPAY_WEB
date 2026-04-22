@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const SLIDES = [
-  { src: "/onboarding1.jpg", alt: "ShopPay – Safe shopping in Nigeria" },
+  { src: "/onboarding1.jpg", alt: "ShopPay NG – Safe shopping in Nigeria" },
   { src: "/onboarding2.jpg", alt: "Escrow protection and easy selling" },
   { src: "/onboarding3.jpg", alt: "Pay bills and shop in one app" },
 ];

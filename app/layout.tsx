@@ -15,15 +15,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ShopPay – Secure E-commerce & Fintech in Nigeria",
+  title: "ShopPay NG – Secure E-commerce & Fintech in Nigeria",
   description:
-    "ShopPay is a secure, mobile-first e-commerce and fintech platform in Nigeria. Pay Safe, Shop Free. Escrow-protected transactions, social commerce, airtime and utility payments.",
+    "ShopPay NG is a secure, mobile-first e-commerce and fintech platform in Nigeria. Pay Safe, Shop Free. Escrow-protected transactions, social commerce, airtime and utility payments.",
   icons: {
     icon: "/LOGO-SHOPPAY.jpeg",
     apple: "/LOGO-SHOPPAY.jpeg",
   },
   openGraph: {
-    title: "ShopPay – Secure E-commerce & Fintech in Nigeria",
+    title: "ShopPay NG – Secure E-commerce & Fintech in Nigeria",
     description: "Pay Safe, Shop Free. Escrow-protected buying and selling in Nigeria.",
   },
 };
