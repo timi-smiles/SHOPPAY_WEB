@@ -39,9 +39,9 @@ export default function Footer() {
               </p>
             </div>
             <p className="text-sm text-[var(--text-primary)]">
-              ShopPay NG is a product of Shopbay Global Market Limited, RC: [{COMPANY_RC}]
+              ShopPay NG is a product of Shopbay Global Market Limited, RC: {COMPANY_RC}
               <br />
-              Payments by Paystack. Escrow held by Hope PSB, CBN-Licensed.
+              Payments by Paystack. Escrow funds held by CBN-Licensed PSB.
             </p>
           </div>
         </div>
