@@ -2,6 +2,7 @@ type JsonLike = Record<string, unknown>;
 
 export type ProductPreview = {
   title: string;
+  caption?: string;
   imageUrl?: string;
   city?: string;
   condition?: string;
@@ -10,6 +11,8 @@ export type ProductPreview = {
   inStock: boolean;
   linkActive: boolean;
   sellerName?: string;
+  sellerEmail?: string;
+  availableStock?: number;
 };
 
 export type ShippingAddressInput = {
@@ -63,6 +66,36 @@ function unwrapData(payload: unknown): JsonLike {
   return {};
 }
 
+function messageFromBody(raw: JsonLike): string | undefined {
+  if (typeof raw.error === "string" && raw.error) return raw.error;
+  if (typeof raw.message === "string" && raw.message) return raw.message;
+  return undefined;
+}
+
+/** Handles `{ success, data?, error? }` envelopes from the public checkout API. */
+function parseApiData(body: unknown, fallbackError: string): JsonLike {
+  if (!body || typeof body !== "object") throw new Error(fallbackError);
+  const envelope = body as JsonLike;
+  if (envelope.success === false) {
+    throw new Error(messageFromBody(envelope) ?? fallbackError);
+  }
+  return unwrapData(body);
+}
+
+async function readJsonResponse(response: Response, fallbackError: string): Promise<JsonLike> {
+  let body: unknown = {};
+  try {
+    body = await response.json();
+  } catch {
+    /* non-JSON body */
+  }
+  if (!response.ok) {
+    const raw = body && typeof body === "object" ? (body as JsonLike) : {};
+    throw new Error(messageFromBody(raw) ?? `${fallbackError} (${response.status})`);
+  }
+  return parseApiData(body, fallbackError);
+}
+
 function normalizeStatus(value: unknown): CheckoutStatus["state"] {
   if (typeof value !== "string") return "unknown";
   const lowered = value.toLowerCase();
@@ -82,11 +115,6 @@ function toAmount(value: unknown) {
   return 0;
 }
 
-function ensureOk(response: Response, fallbackMessage: string) {
-  if (response.ok) return;
-  throw new Error(`${fallbackMessage} (${response.status})`);
-}
-
 export function formatAmount(amount: number, currency = "NGN") {
   return new Intl.NumberFormat("en-NG", {
     style: "currency",
@@ -102,20 +130,64 @@ export async function getPublicCheckoutBySlug(slug: string): Promise<ProductPrev
     cache: "no-store",
   });
 
-  ensureOk(response, "Unable to load this checkout link");
-  const json = unwrapData(await response.json());
+  const json = await readJsonResponse(response, "Unable to load this checkout link");
+  const product =
+    json.product && typeof json.product === "object" ? (json.product as JsonLike) : ({} as JsonLike);
 
-  const title = String(json.title ?? json.productTitle ?? "ShopPay Checkout");
-  const imageUrl = typeof json.imageUrl === "string" ? json.imageUrl : typeof json.productImage === "string" ? json.productImage : undefined;
-  const city = typeof json.city === "string" ? json.city : undefined;
-  const condition = typeof json.condition === "string" ? json.condition : undefined;
-  const amount = toAmount(json.amount ?? json.snapshotPrice ?? json.price);
+  const title =
+    typeof product.title === "string" && product.title.trim()
+      ? product.title.trim()
+      : typeof json.title === "string"
+        ? json.title
+        : "ShopPay Checkout";
+
+  const caption = typeof product.caption === "string" ? product.caption : undefined;
+  const imageUrl =
+    typeof product.image === "string" && product.image.trim()
+      ? product.image.trim()
+      : typeof json.imageUrl === "string"
+        ? json.imageUrl
+        : typeof json.productImage === "string"
+          ? json.productImage
+          : undefined;
+
+  const city = typeof product.city === "string" ? product.city : typeof json.city === "string" ? json.city : undefined;
+  const condition =
+    typeof product.condition === "string"
+      ? product.condition
+      : typeof json.condition === "string"
+        ? json.condition
+        : undefined;
+
+  const amount = toAmount(
+    json.unitPrice ?? json.amount ?? json.snapshotPrice ?? json.price ?? product.price ?? product.unitPrice,
+  );
   const currency = typeof json.currency === "string" ? json.currency : "NGN";
-  const inStock = Boolean(json.inStock ?? json.available ?? true);
+
+  const stockRaw = json.availableStock;
+  const availableStock = typeof stockRaw === "number" ? stockRaw : undefined;
+  const inStock =
+    typeof stockRaw === "number" ? stockRaw > 0 : Boolean(json.inStock ?? json.available ?? true);
+
   const linkActive = Boolean(json.linkActive ?? json.active ?? true);
+
+  const sellerEmail = typeof json.sellerEmail === "string" ? json.sellerEmail : undefined;
   const sellerName = typeof json.sellerName === "string" ? json.sellerName : undefined;
 
-  return { title, imageUrl, city, condition, amount, currency, inStock, linkActive, sellerName };
+  return {
+    title,
+    caption,
+    imageUrl,
+    city,
+    condition,
+    amount,
+    currency,
+    inStock,
+    linkActive,
+    sellerName,
+    sellerEmail,
+    availableStock,
+  };
 }
 
 export async function createPublicCheckout(slug: string, payload: BuyerCheckoutInput): Promise<CheckoutInitResult> {
@@ -128,8 +200,7 @@ export async function createPublicCheckout(slug: string, payload: BuyerCheckoutI
     body: JSON.stringify(payload),
   });
 
-  ensureOk(response, "Unable to initialize payment");
-  const json = unwrapData(await response.json());
+  const json = await readJsonResponse(response, "Unable to initialize payment");
   const authorizationUrl = String(json.authorization_url ?? json.authorizationUrl ?? "");
 
   if (!authorizationUrl) {
@@ -181,13 +252,13 @@ export async function getPublicCheckoutStatus(reference: string): Promise<Checko
     cache: "no-store",
   });
 
-  ensureOk(response, "Unable to verify payment status");
-  const json = unwrapData(await response.json());
+  const json = await readJsonResponse(response, "Unable to verify payment status");
+  const order = json.order && typeof json.order === "object" ? (json.order as JsonLike) : ({} as JsonLike);
 
   return {
     state: normalizeStatus(json.status ?? json.state),
     reference: String(json.reference ?? reference),
-    amount: toAmount(json.amount),
+    amount: toAmount(json.amount ?? order.totalAmount ?? order.amount),
     currency: typeof json.currency === "string" ? json.currency : "NGN",
     message: typeof json.message === "string" ? json.message : undefined,
   };

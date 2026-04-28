@@ -81,6 +81,8 @@ export default function SocialCheckoutPage() {
   };
 
   const unavailable = data ? !data.inStock || !data.linkActive : false;
+  const sellerLabel = data?.sellerName ?? data?.sellerEmail;
+  const productImageRemote = Boolean(data?.imageUrl && /^https?:\/\//i.test(data.imageUrl));
 
   return (
     <div className="bg-[var(--gray-bg-alt)] px-4 py-10 sm:px-6 sm:py-14">
@@ -108,14 +110,29 @@ export default function SocialCheckoutPage() {
             <section className="overflow-hidden rounded-2xl border border-[var(--border)] bg-white shadow-sm">
               <div className="relative aspect-[4/3] w-full bg-[var(--gray-bg)]">
                 {data.imageUrl ? (
-                  <Image src={data.imageUrl} alt={data.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+                  <Image
+                    src={data.imageUrl}
+                    alt={data.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    unoptimized={productImageRemote}
+                  />
                 ) : (
                   <div className="flex h-full items-center justify-center text-sm text-[var(--text-muted)]">No image preview</div>
                 )}
               </div>
               <div className="space-y-3 p-5">
                 <h2 className="text-xl font-semibold text-[var(--text-primary)]">{data.title}</h2>
+                {data.caption ? (
+                  <p className="text-sm leading-relaxed text-[var(--text-secondary)]">{data.caption}</p>
+                ) : null}
                 <p className="text-2xl font-bold text-[var(--primary)]">{formatAmount(data.amount, data.currency)}</p>
+                {typeof data.availableStock === "number" ? (
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    {data.availableStock > 0 ? `${data.availableStock} in stock` : "Out of stock"}
+                  </p>
+                ) : null}
                 <div className="flex flex-wrap gap-2">
                   {data.condition ? (
                     <span className="rounded-full bg-[var(--purple-light)] px-3 py-1 text-xs font-medium text-[var(--primary)]">{data.condition}</span>
@@ -123,8 +140,10 @@ export default function SocialCheckoutPage() {
                   {data.city ? (
                     <span className="rounded-full bg-[var(--tint-pink)] px-3 py-1 text-xs font-medium text-[var(--accent)]">{data.city}</span>
                   ) : null}
-                  {data.sellerName ? (
-                    <span className="rounded-full bg-[var(--gray-bg)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)]">{data.sellerName}</span>
+                  {sellerLabel ? (
+                    <span className="rounded-full bg-[var(--gray-bg)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)]">
+                      {data.sellerName ? `Seller: ${data.sellerName}` : `Seller: ${data.sellerEmail}`}
+                    </span>
                   ) : null}
                 </div>
                 {unavailable ? (
