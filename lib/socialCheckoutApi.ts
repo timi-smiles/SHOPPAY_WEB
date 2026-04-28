@@ -144,6 +144,36 @@ export async function createPublicCheckout(slug: string, payload: BuyerCheckoutI
   };
 }
 
+export type DeliveryConfirmResult = {
+  success: true;
+  alreadyReleased?: boolean;
+  message: string;
+};
+
+export async function confirmGuestDelivery(token: string): Promise<DeliveryConfirmResult> {
+  const response = await fetch(endpoint("/api/public/checkout/confirm-delivery"), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({ token }),
+  });
+
+  const json = (await response.json()) as Record<string, unknown>;
+
+  if (!response.ok || json.success === false) {
+    const msg = typeof json.error === "string" ? json.error : typeof json.message === "string" ? json.message : "Unable to confirm delivery";
+    throw new Error(msg);
+  }
+
+  return {
+    success: true,
+    alreadyReleased: json.alreadyReleased === true,
+    message: typeof json.message === "string" ? json.message : "Delivery confirmed! Payment has been released to the seller.",
+  };
+}
+
 export async function getPublicCheckoutStatus(reference: string): Promise<CheckoutStatus> {
   const response = await fetch(endpoint(`/api/public/checkout/social/status/${encodeURIComponent(reference)}`), {
     method: "GET",
