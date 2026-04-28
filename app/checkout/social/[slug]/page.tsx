@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { FormEvent, useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   BuyerCheckoutInput,
   createPublicCheckout,
@@ -10,6 +10,12 @@ import {
   getPublicCheckoutBySlug,
   ProductPreview,
 } from "@/lib/socialCheckoutApi";
+
+/** Paystack transaction refs (e.g. PSK_SOCIAL_…) are not product slugs. If the return URL uses /checkout/social/:reference, send users to the callback route. */
+function isLikelyPaystackTransactionReference(segment: string): boolean {
+  if (!segment || segment.length < 4) return false;
+  return /^PSK_/i.test(segment);
+}
 
 const initialForm: BuyerCheckoutInput = {
   buyerName: "",
@@ -26,15 +32,22 @@ const initialForm: BuyerCheckoutInput = {
 
 export default function SocialCheckoutPage() {
   const routeParams = useParams<{ slug: string }>();
+  const router = useRouter();
   const slug = routeParams?.slug ?? "";
+  const isPaymentRef = Boolean(slug && isLikelyPaystackTransactionReference(slug));
   const [data, setData] = useState<ProductPreview | null>(null);
   const [form, setForm] = useState<BuyerCheckoutInput>(initialForm);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!isPaymentRef);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!slug) return;
+    if (!isPaymentRef || !slug) return;
+    router.replace(`/checkout/social/callback?reference=${encodeURIComponent(slug)}`);
+  }, [isPaymentRef, slug, router]);
+
+  useEffect(() => {
+    if (!slug || isPaymentRef) return;
 
     let active = true;
 
@@ -63,7 +76,7 @@ export default function SocialCheckoutPage() {
     return () => {
       active = false;
     };
-  }, [slug]);
+  }, [slug, isPaymentRef]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -83,6 +96,19 @@ export default function SocialCheckoutPage() {
   const unavailable = data ? !data.inStock || !data.linkActive : false;
   const sellerLabel = data?.sellerName ?? data?.sellerEmail;
   const productImageRemote = Boolean(data?.imageUrl && /^https?:\/\//i.test(data.imageUrl));
+
+  if (isPaymentRef && slug) {
+    return (
+      <div className="bg-[var(--gray-bg-alt)] px-4 py-10 sm:px-6 sm:py-14">
+        <div className="mx-auto max-w-3xl">
+          <section className="rounded-2xl border border-[var(--border)] bg-white p-8 text-center shadow-sm">
+            <h1 className="text-xl font-semibold text-[var(--text-primary)]">Confirming your payment</h1>
+            <p className="mt-3 text-sm text-[var(--text-secondary)]">Taking you to the payment result page…</p>
+          </section>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[var(--gray-bg-alt)] px-4 py-10 sm:px-6 sm:py-14">
