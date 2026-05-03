@@ -123,7 +123,7 @@ export default function GuestDeliveryConfirmView({ token }: Props) {
                 </p>
               ) : (
                 <p className="mt-4 rounded-xl bg-[var(--success)]/8 px-4 py-3 text-sm text-[var(--text-secondary)]">
-                  Thank you for confirming. The seller has been paid and your escrow is now closed.
+                  Thank you for confirming. Escrow funds are now paid to the seller&apos;s ShopPay wallet.
                 </p>
               )}
               <div className="mt-6">

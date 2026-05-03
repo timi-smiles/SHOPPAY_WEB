@@ -229,19 +229,25 @@ export async function confirmGuestDelivery(token: string): Promise<DeliveryConfi
       Accept: "application/json",
     },
     body: JSON.stringify({ token }),
+    cache: "no-store",
   });
 
-  const json = (await response.json()) as Record<string, unknown>;
+  const json = await readJsonResponse(response, "Unable to confirm delivery");
 
-  if (!response.ok || json.success === false) {
-    const msg = typeof json.error === "string" ? json.error : typeof json.message === "string" ? json.message : "Unable to confirm delivery";
-    throw new Error(msg);
-  }
+  const alreadyReleased =
+    json.alreadyReleased === true ||
+    json.already_released === true ||
+    (typeof json.alreadyReleased === "string" && json.alreadyReleased.toLowerCase() === "true");
+
+  const message =
+    typeof json.message === "string" && json.message.trim()
+      ? json.message.trim()
+      : "Delivery confirmed! Escrow funds have been released to the seller's ShopPay wallet.";
 
   return {
     success: true,
-    alreadyReleased: json.alreadyReleased === true,
-    message: typeof json.message === "string" ? json.message : "Delivery confirmed! Payment has been released to the seller.",
+    alreadyReleased,
+    message,
   };
 }
 
